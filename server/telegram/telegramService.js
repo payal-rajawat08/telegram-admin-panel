@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import axios from "axios";
 import Messages from "../models/Message.js";
-import connectDB from "../config/db.js";
 dotenv.config();
 const telegramApi = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
 let lastUpdateId = 0;
@@ -53,14 +52,19 @@ for (const message of messages) {
     }
 console.dir(messages,{depth:null});
 };
-sendMessage("Hello from admin");
 const start = async () => {
-    await connectDB();
-    await getBotInfo();
-    await getUpdates();
-
-    setInterval(getUpdates, 3000);
+    if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
+        console.log("Telegram polling skipped: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set");
+        return;
+    }
+    try {
+        await getBotInfo();
+        await getUpdates();
+        setInterval(getUpdates, 3000);
+    } catch (error) {
+        console.log("Telegram polling failed to start", error.message);
+    }
 };
 
- export {sendMessage};
+export { sendMessage, start };
 
