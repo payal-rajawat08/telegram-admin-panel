@@ -53,7 +53,6 @@ for (const message of messages) {
     }
 console.dir(messages,{depth:null});
 };
-sendMessage("Hello from admin");
 const start = async () => {
     await connectDB();
     await getBotInfo();

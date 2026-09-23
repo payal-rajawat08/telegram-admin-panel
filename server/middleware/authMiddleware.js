@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { BiEqualizer } from "react-icons/bi";
 const authMiddleware = (req,res,next)=>{
     const authHeader = req.headers.authorization;
     if(!authHeader){

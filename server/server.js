@@ -3,6 +3,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import telegramRoutes from "./routes/telegramRoutes.js";
 /*
 Aur ye app hi aage:
 routes handle karega
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.json())
 app.use("/api/auth",authRoutes);
 app.use("/api/admin/",adminRoutes);
+app.use("/api/admin/telegram/",telegramRoutes);
 app.get("/",(req,res)=>{
     res.send("hello from server");
 });

@@ -1,5 +1,5 @@
-import { sendMessage } from "../telegram/telegramService";
-const replyToTelegram = async (eq,res) => {
+import { sendMessage } from "../telegram/telegramService.js";
+const replyToTelegram = async (req,res) => {
     const {text} = req.body;
     if(!text){
        return res.status(400).json({
@@ -7,7 +7,8 @@ const replyToTelegram = async (eq,res) => {
         });
     }
     await sendMessage(text);
-    es.status(200).json({
+    res.status(200).json({
         message:"reply sent successfully"
     });
 }
+export {replyToTelegram};
