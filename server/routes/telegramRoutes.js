@@ -1,7 +1,11 @@
 import express from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
-import { replyToTelegram, getMessages } from "../controllers/telegramController.js";
+import upload from "../middleware/uploadMiddleware.js";
+import { replyToTelegram, getMessages,getGroups,sendMedia,getMedia,} from "../controllers/telegramController.js";
 const router = express.Router();
 router.post("/reply",authMiddleware,replyToTelegram);
+router.post("/media",authMiddleware,upload.single("file"),sendMedia);
+router.get( "/media/:fileId",authMiddleware,getMedia);
 router.get("/messages",authMiddleware,getMessages);
+router.get("/groups", authMiddleware, getGroups);
 export default router;

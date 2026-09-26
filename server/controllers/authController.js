@@ -35,7 +35,8 @@ const loginAdmin = async (req,res) =>{
     );
     res.status(200).json({
         message:"Login successfull",
-        token
+        token,
+        userId: admin._id
     });
     };
     export { registerAdmin, loginAdmin };

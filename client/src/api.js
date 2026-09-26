@@ -19,7 +19,10 @@ export function clearSession() {
 }
 
 export async function apiRequest(path, options = {}) {
-  const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
+  const headers = {...(options.headers || {}),};
+if (!(options.body instanceof FormData)) {
+  headers["Content-Type"] = "application/json";
+}
   const token = getToken();
   if (token) headers.Authorization = "Bearer " + token;
 

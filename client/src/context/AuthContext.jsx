@@ -3,9 +3,11 @@ import { apiRequest, getToken, getEmail, setSession, clearSession } from "../api
 
 const AuthContext = createContext(null);
 
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(getToken());
   const [email, setEmail] = useState(getEmail());
+  const [userId, setUserId] = useState(null);
 
   const login = useCallback(async (loginEmail, password) => {
     const data = await apiRequest("/auth/login", {
@@ -15,6 +17,7 @@ export function AuthProvider({ children }) {
     setSession(data.token, loginEmail);
     setToken(data.token);
     setEmail(loginEmail);
+    setUserId(data.userId);
   }, []);
 
   const register = useCallback(async (regEmail, password) => {
@@ -31,7 +34,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, email, login, register, logout }}>
+    <AuthContext.Provider value={{ token, email,userId, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
